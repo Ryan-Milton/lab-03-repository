@@ -4,22 +4,29 @@ body {
 }
 
 img {
-    width: 100px;
+    width: 50%;
 }
 
 section {
-    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 5px;
-    width: 300px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+    align-content: center;
+    
 }
 
 #photo-template {
     display: none
 }
 
-footer {
-    clear: both
+p {
+    display: none;
 }
