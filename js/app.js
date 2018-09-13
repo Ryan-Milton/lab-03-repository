@@ -11,17 +11,23 @@ function Horn(hornObject) {
 Horn.allHorns = [];
 
 Horn.prototype.render = function() {
-  $('main').append('<section class="clone"></section>');
+  // $('main').append('<section class="clone"></section>');
 
-  const $hornClone = $('section[class="clone"]');
-  const $hornHtml = $('#photo-template').html();
-  $hornClone.html($hornHtml);
+  // const $hornClone = $('section[class="clone"]');
+  // const $hornHtml = $('#photo-template').html();
+  // $hornClone.html($hornHtml);
 
-  $hornClone.find('h2').text(this.title);
-  $hornClone.find('img').attr('src', this.image_url);
-  $hornClone.find('p').text(this.description);
-  $hornClone.removeClass('clone');
-  $hornClone.addClass(this.keyword);
+  // $hornClone.find('h2').text(this.title);
+  // $hornClone.find('img').attr('src', this.image_url);
+  // $hornClone.find('p').text(this.description);
+  // $hornClone.removeClass('clone');
+  // $hornClone.addClass(this.keyword);
+
+  const $source = $('#photo-template').html();
+  console.log($source);
+  const compiledSource = Handlebars.compile($source);
+
+  return compiledSource(this);
 }
 
 Horn.readJson = () => {
@@ -37,7 +43,7 @@ Horn.readJson = () => {
 }
 
 Horn.loadHorns = () => {
-  Horn.allHorns.forEach(horn => horn.render());
+  Horn.allHorns.forEach(horn => $('#photos').append(horn.render()));
 }
 
 $(() => Horn.readJson());
@@ -70,6 +76,6 @@ $('select').change(function(){
 
   let optionSelected = $('#dropDown').find(':selected').text();
 
-  $('section').hide();
-  $('section.' + optionSelected).show();
+  $('div').hide();
+  $('div.' + optionSelected).show();
 })
