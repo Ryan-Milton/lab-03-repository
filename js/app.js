@@ -83,4 +83,4 @@ function compare(a,b) {
   return comparison;
 }
 
-Horn.allHorns.sort();
+Horn.allHorns.sortBy();
