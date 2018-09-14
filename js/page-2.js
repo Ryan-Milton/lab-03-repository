@@ -61,13 +61,45 @@ let createDropdown = function() {
 
 // Filter event
 
-$('select').change(function(){
+$('#dropDown').change(function(){
 
   let optionSelected = $('#dropDown').find(':selected').text();
 
   $('div').hide();
   $('div.' + optionSelected).show();
 })
+
+//Radio Button Listener
+
+$('#radio').change(function(){
+
+  let selection = $('#radio').find('input[type="radio"]:checked').val();
+  console.log(selection);
+
+  if(selection === 'title'){
+    $('div').hide();
+    Horn.sortBy();
+    Horn.loadHorns();
+    console.log('titlesort');
+  }else if(selection === 'horns'){
+    Horn.sortByHorns = () => {
+      Horn.allHorns.sort( (a,b) => {
+        let firstHorn1 = a['horns'];
+        // console.log(firstHorn1);
+        let secondHorn1 = b['horns'];
+        // console.log(secondHorn1);
+        return (firstHorn1 > secondHorn1) ? 1: (firstHorn1 < secondHorn1) ? -1: 0;
+      });
+    }
+    $('div').hide();
+    Horn.sortByHorns();
+    Horn.loadHorns();
+    console.log(Horn.allHorns);
+    console.log('hornSort');
+  }
+});
+
+// Sorting
 
 Horn.sortBy = () => {
   // array = Horn.allHorns;
@@ -79,4 +111,3 @@ Horn.sortBy = () => {
     return (firstHorn > secondHorn) ? 1: (firstHorn < secondHorn) ? -1: 0;
   });
 }
-
