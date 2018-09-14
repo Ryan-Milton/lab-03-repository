@@ -25,6 +25,7 @@ Horn.readJson = () => {
         Horn.allHorns.push(new Horn(horn));
       })
     })
+    .then(Horn.sortBy)
     .then(Horn.loadHorns)
     .then(Horn.createFilter)
     .then(createDropdown)
@@ -60,7 +61,7 @@ let createDropdown = function() {
 
 // Filter event
 
-$('select').change(function(){
+$('#dropDown').change(function(){
 
   let optionSelected = $('#dropDown').find(':selected').text();
 
@@ -68,19 +69,47 @@ $('select').change(function(){
   $('div.' + optionSelected).show();
 })
 
+//Radio Button Listener
+
+$('#radio').change(function(){
+
+  let selection = $('#radio').find('input[type="radio"]:checked').val();
+  console.log(selection);
+
+  if(selection === 'title'){
+    $('div').hide();
+    Horn.sortBy();
+    Horn.loadHorns();
+    console.log('titlesort');
+  }else if(selection === 'horns'){
+    Horn.sortByHorns = () => {
+      Horn.allHorns.sort( (a,b) => {
+        let firstHorn1 = a['horns'];
+        // console.log(firstHorn1);
+        let secondHorn1 = b['horns'];
+        // console.log(secondHorn1);
+        return (firstHorn1 > secondHorn1) ? 1: (firstHorn1 < secondHorn1) ? -1: 0;
+      });
+    }
+    $('div').hide();
+    Horn.sortByHorns();
+    Horn.loadHorns();
+    console.log(Horn.allHorns);
+    console.log('hornSort');
+  }
+});
+
 // Sorting
 
-function compare(a,b) {
-  const titleA = a.title;
-  const titleB = b.title;
-
-  let comparison = 0;
-  if (titleA > titleB){
-    comparison = 1;
-  } else if (titleA < titleB) {
-    comparison = -1;
-  }
-  return comparison;
+Horn.sortBy = () => {
+  // array = Horn.allHorns;
+  // 'title = Horn.title;
+  console.log('sorting')
+  Horn.allHorns.sort( (a,b) => {
+    let firstHorn = a['title'];
+    let secondHorn = b['title'];
+    return (firstHorn > secondHorn) ? 1: (firstHorn < secondHorn) ? -1: 0;
+  });
 }
 
-Horn.allHorns.sortBy();
+

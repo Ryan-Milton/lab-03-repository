@@ -11,18 +11,6 @@ function Horn(hornObject) {
 Horn.allHorns = [];
 
 Horn.prototype.render = function() {
-  // $('main').append('<section class="clone"></section>');
-
-  // const $hornClone = $('section[class="clone"]');
-  // const $hornHtml = $('#photo-template').html();
-  // $hornClone.html($hornHtml);
-
-  // $hornClone.find('h2').text(this.title);
-  // $hornClone.find('img').attr('src', this.image_url);
-  // $hornClone.find('p').text(this.description);
-  // $hornClone.removeClass('clone');
-  // $hornClone.addClass(this.keyword);
-
   const $source = $('#photo-template').html();
   console.log($source);
   const compiledSource = Handlebars.compile($source);
@@ -37,6 +25,7 @@ Horn.readJson = () => {
         Horn.allHorns.push(new Horn(horn));
       })
     })
+    .then(Horn.sortBy)
     .then(Horn.loadHorns)
     .then(Horn.createFilter)
     .then(createDropdown)
@@ -79,3 +68,15 @@ $('select').change(function(){
   $('div').hide();
   $('div.' + optionSelected).show();
 })
+
+Horn.sortBy = () => {
+  // array = Horn.allHorns;
+  // 'title = Horn.title;
+  console.log('sorting')
+  Horn.allHorns.sort( (a,b) => {
+    let firstHorn = a['title'];
+    let secondHorn = b['title'];
+    return (firstHorn > secondHorn) ? 1: (firstHorn < secondHorn) ? -1: 0;
+  });
+}
+
