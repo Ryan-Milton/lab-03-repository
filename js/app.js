@@ -111,5 +111,3 @@ Horn.sortBy = () => {
     return (firstHorn > secondHorn) ? 1: (firstHorn < secondHorn) ? -1: 0;
   });
 }
-
-
